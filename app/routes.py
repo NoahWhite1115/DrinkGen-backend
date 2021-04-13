@@ -1,12 +1,12 @@
 from flask import render_template
 from app import app
-from generateDrink import DrinkGenerator
+from . import generateDrink
 
-drinkgen = DrinkGenerator()
+drinkgen = generateDrink.DrinkGenerator()
 
 @app.route('/')
 @app.route('/index')
 def index():
-    (ingredients, measures) = DrinkGenerator.generateDrink()
-    ingredient_strings = DrinkGenerator.lookupValues(ingredients, measures)
+    (ingredients, measures) = drinkgen.generateDrink()
+    ingredient_strings = drinkgen.lookupValues(ingredients, measures)
     return render_template('index.html', ingredients = ingredient_strings)
