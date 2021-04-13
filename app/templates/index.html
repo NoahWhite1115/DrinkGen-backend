@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Drink Maker</title>
+    </head>
+    <body>
+        <h1> 
+            {% for ingredient in ingredients %}
+            <div><p>{{ ingredient:measure }} {{ ingredient.ingredient }}</p></div>
+            {% endfor %}
+        </h1>
+    </body>
+</html>
