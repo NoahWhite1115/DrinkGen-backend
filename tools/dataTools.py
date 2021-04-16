@@ -9,10 +9,10 @@ def loadList(filename):
 
 def maskStarter():
 
-    starter_array = numpy.load('starter_array.npy')
+    starter_array = numpy.load('../data/starter_array.npy')
 
-    ingredient_list = loadList('ingredients.csv')
-    starter_mask = loadList('mask.csv')
+    ingredient_list = loadList('../data/ingredients.csv')
+    starter_mask = loadList('../data/mask.csv')
     
     values = []
 
@@ -23,6 +23,19 @@ def maskStarter():
         if i not in values:
             starter_array[i] = 0
 
-    numpy.save("starter_array.npy", starter_array)
+    numpy.save("../data/starter_array.npy", starter_array)
 
-maskStarter()
+def displayMeasures(measure_list):
+    for index, i in enumerate(measure_list):
+        print(str(index) + ": " + i)
+
+
+def mergeMeasures(index_summed, index_removed):
+    measure_list = loadList('../data/measures.csv')
+    measures_array = numpy.load('../data/measure_matrix.npy')
+    measures_array[:,index_summed] = measures_array[:,index_summed] + measures_array[:,index_removed]
+    measures_array = numpy.delete(measures_array, index_removed, axis = 1)
+    print(measures_array.shape)
+
+measure_list = loadList('../data/measures.csv')
+mergeMeasures(55, 66)
