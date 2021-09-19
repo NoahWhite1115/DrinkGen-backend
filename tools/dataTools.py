@@ -35,7 +35,7 @@ def mergeMeasures(index_summed, index_removed):
     measures_array = numpy.load('../data/measure_matrix.npy')
     measures_array[:,index_summed] = measures_array[:,index_summed] + measures_array[:,index_removed]
     measures_array = numpy.delete(measures_array, index_removed, axis = 1)
-    print(measures_array.shape)
+    
 
 measure_list = loadList('../data/measures.csv')
 mergeMeasures(55, 66)
