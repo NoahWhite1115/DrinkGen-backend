@@ -2,7 +2,9 @@ from flask import request
 from app import app
 from . import generateDrink
 from . import base64
+from . import dynamoDrinkGenerator
 
+dynamodrinkgen = dynamoDrinkGenerator.DynamoDrinkGenerator()
 drinkgen = generateDrink.DrinkGenerator()
 converter = base64.Base64Converter()
 
@@ -12,6 +14,13 @@ def index():
     ingredient_strings = drinkgen.lookupValues(ingredients, measures)
     encoded_str = converter.num_encode(ingredients) + converter.num_encode(measures)
     return {'ingredients': ingredient_strings, 'encoded string': encoded_str}
+
+#TODO: change encoding to hash instead of base64? or implement base 64 with dynamo
+@app.route('/make_drink_with')
+def index():
+    base = request.args.get('base')
+    ingredient_strings = dynamodrinkgen.generateDrinkWith(base)
+    return {'ingredients': ingredient_strings}
 
 @app.route('/get_drink')
 def link():
